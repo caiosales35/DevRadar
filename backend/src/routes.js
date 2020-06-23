@@ -1,10 +1,8 @@
 const { Router } = require('express');
-const { model } = require('mongoose');
+const DevController = require('./controllers/DevController');
 
 const routes = Router();
 
-routes.get('/', (request, response) => {
-    return response.json({message: 'Ola mundo'});
-});
+routes.post('/devs', DevController.store);
 
 module.exports = routes;
