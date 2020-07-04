@@ -19,13 +19,14 @@ function App() {
 
   useEffect(() => {
     async function loadDevs() {
-      const response = api.get("/devs");
+      const response = await api.get("/devs");
       setDevs(response.data);
     }
     loadDevs();
   }, []);
 
   async function hadleAddDev(data) {
+    console.log(data);
     const response = await api.post("/devs", data);
     setDevs([...devs, response.data]);
   }
