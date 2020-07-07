@@ -1,6 +1,7 @@
 const axios = require("axios");
 const Dev = require("../models/Dev");
 const parseStringAsArray = require("../utils/parseStringAsArray");
+const { findConnections, sendMessage } = require("../websocket");
 
 /* Maximo de cinco funções: Index, show, store, update and destroy */
 
@@ -33,6 +34,13 @@ module.exports = {
         techs: techsArray,
         location,
       });
+
+      // Filtrar conexoes ativas no socket
+      const sendSocketMessageTo = findConnections(
+        { latitude, longitude },
+        techsArray
+      );
+      sendMessage(sendSocketMessageTo, "new-dev", dev);
     }
     return response.json(dev);
   },
